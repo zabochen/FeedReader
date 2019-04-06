@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">FeedReader</string>
+
+    <!-- DrawerLayout -->
+    <string name="drawerLayout_open">Open drawer</string>
+    <string name="drawerLayout_close">Close drawer</string>
+
+    <!-- NavigationView Items -->
+    <string name="navigationView_item_androidJetpack">Android Jetpack</string>
+    <string name="navigationView_item_androidKotlin">Android Kotlin</string>
+    <string name="navigationView_item_androidThings">Android Things</string>
+
+</resources>
