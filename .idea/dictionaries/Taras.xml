@@ -3,10 +3,12 @@
     <words>
       <w>anko</w>
       <w>butterknife</w>
+      <w>cardview</w>
       <w>coroutines</w>
       <w>feedreader</w>
       <w>gson</w>
       <w>jetpack</w>
+      <w>recyclerview</w>
       <w>toogle</w>
       <w>unbinder</w>
       <w>zabochen</w>

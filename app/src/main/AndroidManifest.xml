@@ -27,6 +27,17 @@
             </intent-filter>
         </activity>
 
+        <!-- YoutubePlayer Activity -->
+        <activity
+            android:name=".ui.player.YoutubePlayerActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="sensor"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

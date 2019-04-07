@@ -10,4 +10,6 @@
     <string name="navigationView_item_androidKotlin">Android Kotlin</string>
     <string name="navigationView_item_androidThings">Android Things</string>
 
+    <!-- PlaylistFragment -->
+    <string name="playlistFragment_textView_loading">Loading</string>
 </resources>
