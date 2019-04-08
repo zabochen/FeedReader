@@ -103,12 +103,18 @@ class PlaylistFragment : BaseFragment(), AnkoLogger {
                 recyclerView = this,
                 clickListener = object : RecyclerViewItemTouchListener.ClickListener {
                     override fun onClick(view: View, position: Int) {
-
                         // Start YoutubePlayerActivity
-                        // Send: Video Id and Video Description
-                        startActivity(Intent(activity!!, YoutubePlayerActivity::class.java).apply {
-                            putExtra(INTENT_YOUTUBE_VIDEO_ID_KEY, videoList[position].videoId)
-                            putExtra(INTENT_YOUTUBE_VIDEO_DESCRIPTION_KEY, videoList[position].description)
+                        startActivity(Intent(activity, YoutubePlayerActivity::class.java).apply {
+                            // Add Video Id
+                            putExtra(
+                                INTENT_YOUTUBE_VIDEO_ID_KEY,
+                                playlistAdapter.getData()[position].videoId
+                            )
+                            // Add Video Description
+                            putExtra(
+                                INTENT_YOUTUBE_VIDEO_DESCRIPTION_KEY,
+                                playlistAdapter.getData()[position].description
+                            )
                         })
                     }
 

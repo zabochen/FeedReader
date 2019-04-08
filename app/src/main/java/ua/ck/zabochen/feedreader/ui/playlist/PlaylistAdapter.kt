@@ -38,6 +38,8 @@ class PlaylistAdapter : RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder>
         notifyDataSetChanged()
     }
 
+    fun getData() = this.videoList
+
     inner class PlaylistViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         init {

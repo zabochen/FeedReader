@@ -5,8 +5,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 import ua.ck.zabochen.feedreader.data.db.dao.VideoDao
 import ua.ck.zabochen.feedreader.data.db.entity.video.YoutubeVideoEntity
 import ua.ck.zabochen.feedreader.data.network.FeedReaderNetwork
@@ -17,36 +15,36 @@ class FeedReaderRepositoryImpl(
     private val videoDao: VideoDao,
     private val feedReaderNetwork: FeedReaderNetwork,
     private val navigationProvider: NavigationProvider
-) : FeedReaderRepository, AnkoLogger {
+) : FeedReaderRepository {
 
     init {
         feedReaderNetwork.downloadedYoutubePlaylistVideo.observeForever { youtubePlaylistResponse ->
-            info { "=== feedReaderNetwork.downloadedYoutubePlaylistVideo.observeForever ===" }
             persistYoutubePlaylist(youtubePlaylistResponse)
         }
     }
 
     private fun persistYoutubePlaylist(youtubePlaylistVideo: YoutubePlaylistVideoResponse) {
-
-        // TODO: Save response to Room
         GlobalScope.launch(Dispatchers.IO) {
-            // Delete Data
+            // Delete data in database
             videoDao.deleteAllVideoByPlaylistId(getCurrentPlaylistId())
 
-            // Insert Data
-            for (i in youtubePlaylistVideo.items) {
-                val video = YoutubeVideoEntity(
-                    itemId = i.id,
-                    playlistId = getCurrentPlaylistId(),
-                    videoId = i.snippet.resourceId.videoId,
-                    title = i.snippet.title,
-                    description = i.snippet.description,
-                    coverImageUrl = i.snippet.thumbnails.standard.url
+            // Fill videoList
+            val videoList: MutableList<YoutubeVideoEntity> = arrayListOf()
+            youtubePlaylistVideo.items.forEach { item ->
+                videoList.add(
+                    YoutubeVideoEntity(
+                        itemId = item.id,
+                        playlistId = getCurrentPlaylistId(),
+                        videoId = item.snippet.resourceId.videoId,
+                        title = item.snippet.title,
+                        description = item.snippet.description,
+                        coverImageUrl = item.snippet.thumbnails.standard.url
+                    )
                 )
-
-                info { i.snippet.title }
-                videoDao.insertVideo(video)
             }
+
+            // Insert data into database
+            videoDao.insertVideo(videoList)
         }
     }
 

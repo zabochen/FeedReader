@@ -12,7 +12,7 @@ import ua.ck.zabochen.feedreader.internal.TABLE_VIDEO
 interface VideoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertVideo(videoEntity: YoutubeVideoEntity)
+    fun insertVideo(videoEntity: List<YoutubeVideoEntity>)
 
     @Query("DELETE FROM $TABLE_VIDEO WHERE playlistId = :playlistId")
     fun deleteAllVideoByPlaylistId(playlistId: String)
